@@ -1,0 +1,248 @@
+***** SECTION 1: APPLICATION LAYOUT ***** 
+
+This application is designed in an model-view-controller scheme.
+
+The models,
+and corresponding database interface classes, are defined by default in the
+models/ subdirectory. For more detailed information on their usage, and how
+to make use of the provided classes, see section 2.
+
+Views are defined as plain .php files by default, in the templates/
+subdirectory, and are rendered by their inclusion in the controller functions.
+
+Controller functions are called by the url routing mechanism. Since views
+share the same scope as the including controller function, any data
+available to the controller will be available to the view for rendering
+purposes.
+
+For more information on the url routing mechanism, how to define controllers,
+and how to create templates, see section 3.
+
+
+
+The process in a nutshell:
+
+	1) request is made
+
+	2) routing mechanism parses request, calls appropriate controller with
+		any parameters captured from the request (see section 3 for details)
+
+	3) controller performs any processing, database access, etc.
+		(note: this is analagous to views in python/django, or controllers
+		in ruby on rails)
+
+	4) controller includes an appropriate template
+
+	5) the included template renders the controller's data as sensible output
+		(as html, xml, rss, json, or whatever)
+
+
+
+
+
+
+***** SECTION 2: DATABASE INTERFACE AND MODEL ABSTRACTION *****
+
+models/publication.php contains a pair of classes which provide a convenient
+abstraction for the publication data model, as well as for basic interaction
+with the database.
+
+These classes extend ObjectModel and ObjectManager base classes,
+defined in models/model.php.
+
+settings/database.php configures access to the database, which is assumed to
+be mysql
+
+Usage of the provided classes:
+
+	ObjectModel class
+
+		instance methods:
+			
+			set_fields($field_vals)
+
+				$field_vals is a keyed array, where the keys correspond with
+				the field name in the database, and the values are the new
+				values with which to update the instance. Values not specified
+				in either ObjectModel::$field_defaults or in $field_vals will
+				be initialized to NULL
+
+			delete();
+
+				Removes the corresponding publication from the  database.
+
+			save();
+
+				Updates the corresponding entry in the database using the
+				values contained in the instance, if this instance was
+				retrieved from the database.
+
+				If there is no existing corresponding database
+				entry, a new one will be created.
+
+
+		static methods:
+
+			ObjectModel::get_object_manager()
+
+				Returns an ObjectManager automatically configured to perform
+				database access for the calling ObjectModel subclass
+
+			ObjectModel::get_field_defaults()
+
+				Returns field defaults, as an array.
+
+			ObjectModel::get_field_names()
+
+				Returns as an array all field names, including primary keys.
+
+			ObjectModel::get_non_pk_field_names()
+
+				Returns as an array field names, excluding primary keys.
+
+			ObjectModel::pk()
+
+				Returns primary keys as an array.
+
+	ObjectManager class
+		
+		instance methods:
+
+			create($publication);
+
+				Saves a new publication instance to the database.
+
+			update($publication, $filters, $limit);
+
+				Updates up to $limit database entries specified by $filters
+				with the values in $publication. See manager.php for more
+				information on how to specify filters, in the comments about
+				the update function.
+
+			retrieve($filters, $offset, $limit, $sortby);
+
+				Retrieves papers from the database specified by filters.
+				By default, offset = 0, there is no limit, and the results
+				are sorted by the ID of the publication in the database.
+
+				To specify descending order, prepend a '-' (minus) to the
+				field on which to sort (ex $sortby = "-date" to sort by
+				date, descending.
+
+			delete($filters, $limit);
+
+				Deletes all entries specified by $filters, up to $limit.
+
+
+
+**** How to subclass ObjectModel and ObjectManager ****
+
+Step 1: Create a subclass of ObjectManager, which overrides the following
+attributes:
+	
+	protected static $table_name
+
+		Set this to the table name corresponding to this object, WITHOUT the
+		table prefix you specify in settings/database.php. The prefix is
+		automatically prepended whenever it accesses the database, if
+		specified.
+
+	protected static $model_class_name
+
+		Set this to the name of the subclass of ObjectModel you create, in
+		Step 2.
+
+
+Step 2: Create a subclass of ObjectModel, which overrides the following
+attributes:
+
+	protected static $manager_class_name
+
+		This should be set to the name of the subclass you create of
+		ObjectManager, for the database management of this class.
+
+	protected static $field_names = array()
+
+		The elements of this array specify the names (and order) of the
+		columns to retrieve from the database table
+
+	protected static $primary_keys = array()
+
+		The elements of the this array specify which of the columns specified
+		in $field_names are primary keys. This is important for preventing
+		the ObjectManager from overwriting existing entries when creating new
+		database entries.
+
+	protected static $field_defaults = array()
+
+		This is a keyed array, where the key specifies the field, and the
+		associated value specifies the default value to use. When
+		keys are omitted from the initializer array in the constructor,
+		the value from $field_defaults is used.
+
+
+
+Optional - Step 3: Add additional functionality as you need to either class.
+
+And you're done! You should be able to make use of the basic CRUD functionality
+provided by the base class, without redundant coding, in your page code.
+
+
+
+
+
+***** SECTION 3: URL ROUTING ***** 
+
+All requests to non-existent resources within the application directory
+are sent to index.php (as specified by .htaccess), which then performs
+the url routing procedure.
+
+When a request is made, the request URI is matched to a regex pattern,
+defined in routes.php. Each pattern is associated with a call to a
+controller function, which is then called, and takes care of processing
+and responding to the request.
+
+
+1. Defining routes
+
+	A ULRRoutes object contains two parts: a controller file, and an associative
+	array of function names, with regular expressions as the keys.
+
+	The controller file specifies where the functions of the URLRoutes object
+	are found.
+
+	routes.php defines a $URL_ROUTES[] variable, which is used by index.php to
+	process all incoming requests. $URL_ROUTES is just an array of URLRoutes
+	objects.
+
+2. Creating controllers
+
+	Controllers are functions within a file in the directory specified by
+	PM\CONTROLLER_ROOT, which is defined in settings/app.php
+
+	Controller functions should accept one argument. This argument will be
+	set to the return value of preg_match() as performed on the
+	regular expression keys of the URLRoutes associative array.
+	This allows one to use captured subpatterns to extract information from
+	the request URI. Named captured subpatterns are then easily accessible to
+	the controller function.
+
+	Once the necessary processing has taken place, controller functions should 
+	include a single template file, found under the directory specified by
+	PM\TEMPLATE_ROOT (again, defined in settings/app.php)
+
+3. Creating templates
+
+	Templates are plain .php files, whose sole purpose is to output a response
+	to a request. Templates share scope with templates from which they
+	inherit, templates from which they are included, and finally the
+	controller function that originally included a template.
+	
+	Templates should limit the processing which takes place in them, to
+	minimize coupling in the application: processing should mostly take place
+	in the controller. Instead, templates are only intended for format the
+	data made available to them by the controller, as they fulfill the
+	"view" portion of the model-view-controller layout.
+
+	Template inheritance is achieved by using phpti. See
+	http://phpti.com for more information, and documentation.

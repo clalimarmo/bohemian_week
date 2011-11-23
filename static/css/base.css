@@ -1,0 +1,116 @@
+.root {
+	padding-left: 10px;
+	}
+
+.inline { display: inline; }
+.indent { padding-left: 2em; }
+.right_float { float: right; }
+.left_float { float: left; }
+.clearfix { clear:both; }
+
+body {
+	padding: 0px;
+	margin: 0px;
+	font-size: 100%;
+	font-family: 'verdana', sans-serif;
+	}
+
+h1 {
+	font-family: 'Varela', sans-serif;
+	font-weight: 500;
+	font-size: 3em;
+	margin: 0px;
+	padding-top: .7em;
+	min-width: 500px;
+	}
+
+h2 {
+	font-family: 'Varela', sans-serif;
+	font-weight: 500;
+	font-size: 2em;
+	margin-top: .3em;
+	margin-bottom: .3em;
+	}
+
+h3 {
+	font-family: 'Varela', sans-serif;
+	font-size: 1.2em;
+	margin-top: .5em;
+	margin-bottom: .5em;
+	}
+
+h1 a {
+	color: inherit;
+	text-decoration: inherit;
+	}
+
+div#seasons {
+	background-color: #000;
+	min-width: 960px;
+	}
+
+div#seasons ol {
+	margin: 0px;
+	padding: 0px;
+	padding-left: 3em;
+	}
+
+div#seasons ol li {
+	list-style: none;
+	display: inline-block;
+	font-family: 'Varela', sans-serif;
+	font-weight: 500;
+	font-size: 2.5em;
+	}
+
+div#seasons ol li a {
+	display: inline;
+	padding-left: .5em;
+	padding-right: .5em;
+	text-decoration: none;
+	width: 100%; color: #bbb;
+}
+
+div#seasons ol li a#info_link {
+	color: #f52887;
+	}
+div#seasons ol li a:hover {
+	color: #000;
+	background-color: #fff;
+	}
+
+div#seasons ol li a#archive_link {
+	color: #666;
+	}
+div#seasons ol li a:hover {
+	color: #000;
+	background-color: #fff;
+	}
+
+div#content {
+	padding-left: 60px;
+	padding-right: 100px;
+	margin-top: 3ex;
+	margin-bottom: 3ex;
+	min-width: 400px;
+	max-width: 960px;
+	}
+
+div.section {
+	padding-left: 1em;
+	padding-right: 1em;
+	border-top: 1px solid #000;
+	margin-bottom: 4ex;
+	}
+
+div.captioned_image {
+	text-align: center;
+	/*margin: 10px;*/
+	margin-left: 10px;
+	margin-right: 10px;
+	margin-top: .5ex;
+	}
+	
+div.captioned_image p {
+	font-size: .8em;
+	}
