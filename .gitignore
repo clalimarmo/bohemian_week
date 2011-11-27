@@ -1,2 +1,3 @@
+*.svn
 settings/app.php
 settings/database.php
