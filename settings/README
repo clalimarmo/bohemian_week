@@ -1,0 +1,20 @@
+Copy or rename the default files to their respective names (without .default),
+and make the following changes:
+
+app.php:
+
+	ROOT_URL should be the relative path of the site from the hostname.
+	ex. If the site is running at http://localhost/bw, ROOT_URL should be
+	"bw"
+
+	or if the site is running at http://localhost/, ROOT_URL should be an empty
+	string.
+
+	APP_ROOT should be the absolute path to the top level directory, where
+	index.php, routes.php, and url_router.php are all found.
+
+
+
+database.php:
+
+	(Can be left as-is, for now.)
