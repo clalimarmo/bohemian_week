@@ -10,10 +10,14 @@ $URL_ROUTES = array();	//don't change the name of this
 
 $URL_ROUTES[] = new URLRoutes('home.php', array(
     '#^/?$#' => 'home'
-		,'#^/info/?$#' => 'info'
-		,'#^/info/founders/?$#' => 'founders'
-		,'#^/archive/?$#' => 'under_construction'
-		,'#^/bw/(?<week_name>(fa|sp)\d{2})/?$#' => 'under_construction'
+	,'#^/info/?$#' => 'info'
+	,'#^/info/founders/?$#' => 'founders'
+	,'#^/archive/?$#' => 'under_construction'
+    )
+);
+
+$URL_ROUTES[] = new URLRoutes('bw.php', array(
+	'#^/bw/(?<season>fa|sp)(?<year>\d{2})/?$#' => 'view_bw'
     )
 );
 
