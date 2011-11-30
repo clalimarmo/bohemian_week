@@ -11,6 +11,7 @@ function view_bw($args) {
 
 	$results = $flickr_api->photos_search(array(
 		'tags' => 'Bohemian Week,'.$time_tag
+		,'tag_mode' => 'all'
 		,'user_id' => '71051084@N04'
 		,'extras' => 'description'
 	));

@@ -1,3 +1,8 @@
+.image_container_bg {
+	background-color: #000;
+	background-position: center;
+	background-repeat:no-repeat;
+	}
 .image_container {
 	width: 400px;
 	height: 400px;
@@ -15,14 +20,14 @@
 	max-height: inherit;
 }
 .photo_action {
+[unselectable=on] -moz-user-select: none; -khtml-user-select: none; user-select: none;
+	background-color: #000;
+	opacity:0.4;
+	filter:alpha(opacity=40);
+	color: #fff;
 	display: inline-block;
 	height: inherit;
-	}
-.photo_action {
-[unselectable=on] -moz-user-select: none; -khtml-user-select: none; user-select: none;
 	font-size: 1.5em;
-	color: transparent;
-	background-color: transparent;
 	text-decoration: none;
 	display: inline-block;
 	padding-left:.75em;
@@ -30,10 +35,12 @@
 	}
 .photo_action:hover {
 	cursor:pointer;
+	/*
 	background-color: #000;
 	opacity:0.4;
 	filter:alpha(opacity=40);
 	color: #fff;
+	*/
 	}
 #prev_photo {
 	float:left;

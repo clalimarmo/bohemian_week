@@ -8,8 +8,10 @@
 	<script src="<?=STATIC_URL;?>scripts/jquery-1.7.1.min.js" rel="javascript" type="text/javascript" language="JavaScript"></script>
 	<style type="text/css">
 		div#seasons a#<?=$season.$year;?> { background-color:#fff; color:#000; }
-		.image_container {
-			background-image:url('<?=IMAGES_URL;?>spinner.gif');
+		.image_container_bg {
+			}
+		#content {
+			width: 860px;
 			}
 	</style>
 	<script type="text/javascript">
@@ -40,29 +42,47 @@
 			}
 		};
 		function show_current_info(title, description) {
-			t = $('<div/>').html(photo_titles[current_image]).text();
-			d = $('<div/>').html(photo_descriptions[current_image]).text();
-			title.html(t);
-			description.html(d);
+			if(current_image >= 0 && current_image < photo_titles.length) {
+				t = $('<div/>').html(photo_titles[current_image]).text();
+				d = $('<div/>').html(photo_descriptions[current_image]).text();
+				title.html(t);
+				description.html(d);
+			}
 		}
 		$(document).ready(function () {
 			var image = $('#image_container');
 			var title_cont = $('#title');
 			var desc_cont = $('#description');
 			show_image(image, title_cont, desc_cont, photo_urls[current_image]);
+			$('.photo_action').delay(500).fadeTo('slow', 0);
+
+			$('.photo_action').mouseenter(function() {
+				$(this).clearQueue();
+				$(this).fadeTo('slow',.4);
+			});
+			$('.photo_action').mouseleave(function() {
+				$(this).clearQueue();
+				$(this).fadeTo('slow',.0);
+			});
 		});
 	</script>
 <?php endblock(); ?>
 
 <?php startblock('content'); ?>
 	<h2>Photos</h2>
-	<div class="image_container left_float" id="image_container">
-		<div class="photo_action" id="prev_photo" onclick="show_prev_image($('#image_container'), $('#title'), $('#description'));">&laquo;</div>
-		<div class="photo_action" id="next_photo" onclick="show_next_image($('#image_container'), $('#title'), $('#description'));">&raquo;</div>
-	</div>
-	<div id="info">
-		<h3 id="title"></h3>
-		<p id="description"></p>
-	</div>
-	<div class="clearfix"></div>
+	<?php if(count($bw_official_photos)) { ?>
+		<div class="image_container_bg left_float">
+		<div class="image_container left_float" id="image_container">
+			<div class="photo_action" id="prev_photo" onclick="show_prev_image($('#image_container'), $('#title'), $('#description'));return false;">&laquo;</div>
+			<div class="photo_action" id="next_photo" onclick="show_next_image($('#image_container'), $('#title'), $('#description'));return false;">&raquo;</div>
+		</div>
+		</div>
+		<div id="info">
+			<h3 id="title"></h3>
+			<p id="description"></p>
+		</div>
+		<div class="clearfix"></div>
+	<?php } else { ?>
+		<div>No photos</div>
+	<?php }// end if(there are photos) ?>
 <?php endblock(); ?>
