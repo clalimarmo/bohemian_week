@@ -5,7 +5,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 	<meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
-	<?php emptyblock('htmlhead'); ?>
+	<?php startblock('htmlhead'); ?>
+	<?php endblock(); ?>
 	<title>
 	<?php startblock('htmltitle'); ?>
 		Bohemian Week
