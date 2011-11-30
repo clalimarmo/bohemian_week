@@ -7,7 +7,7 @@ function view_bw($args) {
 	$time_tag = $season.$year;
 
 	/* flickr_api needs to be defined in settings/app.php, or elsewhere */
-	$flickr_api = new phpFlickr(FLICKR_API);
+	$flickr_api = new phpFlickr(FLICKR_API_KEY);
 
 	$results = $flickr_api->photos_search(array(
 		'tags' => 'Bohemian Week,'.$time_tag

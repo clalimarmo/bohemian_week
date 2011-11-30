@@ -14,4 +14,9 @@ define('STATIC_URL',            ROOT_URL . '/static/');
 define('CSS_URL',               STATIC_URL . 'css/');
 define('IMAGES_URL',            STATIC_URL . 'images/');
 
+define('FLICKR_API_KEY',		'<api key here>');
+
+define('ENABLE_RECAPTCHA',		'false');
+define('RECAPTCHA_PUBLIC_KEY',		'6LdCs8oSAAAAAO5SRcKka8Pwawdbrub1VRpfVTBF');
+define('RECAPTCHA_PRIVATE_KEY',		'6LdCs8oSAAAAAP_83f7jUhH_iXDojbQc8vmT6U06');
 ?>
