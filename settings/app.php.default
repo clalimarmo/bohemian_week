@@ -1,7 +1,6 @@
 <?php
 /*
-** define application-wide settings here; use namespace PM
-** (for publication manager)
+** define application-wide settings here
 */
 
 define('ROOT_URL',          '');
