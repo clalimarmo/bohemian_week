@@ -10,14 +10,16 @@
 
 	<div id="seasons" class="root">
 		<ol>
-			<li><a id="info_link" href="/info">INFO</a></li>
-			<li><a id="fa11" href="/bw/fa11">FA11</a></li>
-			<li><a id="sp11" href="/bw/sp11">SP11</a></li>
-			<li><a id="fa10" href="/bw/fa10">FA10</a></li>
-			<li><a id="sp10" href="/bw/sp10">SP10</a></li>
-			<li><a id="archive_link" href="/archive/">PAST</a></li>
+			<li><a id="info_link" href="<?=ROOT_URL;?>/info">INFO</a></li>
+			<li><a id="fa11" href="<?=ROOT_URL;?>/bw/fa11">FA11</a></li>
+			<li><a id="sp11" href="<?=ROOT_URL;?>/bw/sp11">SP11</a></li>
+			<li><a id="fa10" href="<?=ROOT_URL;?>/bw/fa10">FA10</a></li>
+			<li><a id="sp10" href="<?=ROOT_URL;?>/bw/sp10">SP10</a></li>
+			<li><a id="archive_link" href="<?=ROOT_URL;?>/archive/">PAST</a></li>
 		</ol>
 	</div>
+
+	<div id="notice"><?=$_SESSION['notice'];?></div>
 
 	<div class="root" id="content">
 	<?php startblock('content'); ?>

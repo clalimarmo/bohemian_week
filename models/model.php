@@ -106,8 +106,14 @@ class ObjectModel {
 	public function save() {
 		$m = static::get_object_manager();
 
-		$filters = array(array("id=" => $this->fields['id']));
-		$is_new = !count($m->retrieve($filters));
+		$is_new = true;
+		if(count(static::pk() != 0))
+			foreach(static::pk() as $pk) { 
+				if($this->get_field($pk) !== NULL) {
+					$is_new = false;
+					break;
+				}
+			}
 
 		$rval = NULL;
 
@@ -328,32 +334,34 @@ class ObjectManager {
 
 	protected static function get_where_clause($filters) {
 		$where_clause = "";
-		foreach($filters as $and_set) {
-			$and_clause_group = "(";
-			if($where_clause == "") {
-				$where_clause = "WHERE ";
-			}
-			else {
-				$where_clause = $where_clause . " OR ";
-			}
-			foreach($and_set as $key => $value) {
-				if($and_clause_group != "(") {
-					$and_clause_group = $and_clause_group . " AND ";
+		if($filters !== NULL) {
+			foreach($filters as $and_set) {
+				$and_clause_group = "(";
+				if($where_clause == "") {
+					$where_clause = "WHERE ";
 				}
-				$value_is_numeric_list = preg_match(
-					'#^\((\d+,)*\d+\)$#',
-					$value
-				);
-				$should_escape = (is_string($value)
-					&& !$value_is_numeric_list);
-				if($should_escape) {
-					$value = "'" . mysql_real_escape_string($value) . "'";
+				else {
+					$where_clause = $where_clause . " OR ";
 				}
-				$and_clause_group = $and_clause_group
-					. mysql_real_escape_string($key) . $value;
+				foreach($and_set as $key => $value) {
+					if($and_clause_group != "(") {
+						$and_clause_group = $and_clause_group . " AND ";
+					}
+					$value_is_numeric_list = preg_match(
+						'#^\((\d+,)*\d+\)$#',
+						$value
+					);
+					$should_escape = (is_string($value)
+						&& !$value_is_numeric_list);
+					if($should_escape) {
+						$value = "'" . mysql_real_escape_string($value) . "'";
+					}
+					$and_clause_group = $and_clause_group
+						. mysql_real_escape_string($key) . $value;
+				}
+				$and_clause_group = $and_clause_group . ")";
+				$where_clause = $where_clause . $and_clause_group;
 			}
-			$and_clause_group = $and_clause_group . ")";
-			$where_clause = $where_clause . $and_clause_group;
 		}
 		return $where_clause;
 	}

@@ -1,19 +1,9 @@
-<?php include(TEMPLATE_ROOT.'home.php'); ?>
+<?php include(TEMPLATE_ROOT.'select_bw.php'); ?>
 
 <?php
 	startblock('htmlhead');
 	superblock();
 ?>
-	<link href="<?=CSS_URL;?>view_bw.css" rel="stylesheet" type="text/css" />
-	<script src="<?=STATIC_URL;?>scripts/jquery-1.7.1.min.js" rel="javascript" type="text/javascript" language="JavaScript"></script>
-	<style type="text/css">
-		div#seasons a#<?=$season.$year;?> { background-color:#fff; color:#000; }
-		.image_container_bg {
-			}
-		#content {
-			width: 860px;
-			}
-	</style>
 	<script type="text/javascript">
 		var photo_urls = new Array();
 		var photo_titles = new Array();
@@ -70,6 +60,7 @@
 
 <?php startblock('content'); ?>
 	<h2>Photos</h2>
+	<div class="section" style="width:860px;">
 	<?php if(count($bw_official_photos)) { ?>
 		<div class="image_container_bg left_float">
 		<div class="image_container left_float" id="image_container">
@@ -85,4 +76,16 @@
 	<?php } else { ?>
 		<div>No photos</div>
 	<?php }// end if(there are photos) ?>
+	</div>
+	<h2>Stories</h2>
+	<div class="section">
+		<?php
+		$_story_list['stories'] = array_slice($bw_stories,0,4);
+		include(TEMPLATE_ROOT.'stories/_story_list.php');
+		?>
+		<div>
+			<p class="contribute"><a href="<?=ROOT_URL;?>/bw/<?=$time_tag;?>/stories/">See all</a></p>
+			<p class="contribute"><a href="<?=ROOT_URL;?>/bw/<?=$time_tag;?>/stories/submit/">Submit your own</a></p>
+		</div>
+	</div>
 <?php endblock(); ?>

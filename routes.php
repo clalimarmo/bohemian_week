@@ -21,6 +21,12 @@ $URL_ROUTES[] = new URLRoutes('bw.php', array(
     )
 );
 
+$URL_ROUTES[] = new URLRoutes('story.php', array(
+	'#^/bw/(?<season>fa|sp)(?<year>\d{2})/stories/?$#' => 'index'
+	,'#^/bw/(?<season>fa|sp)(?<year>\d{2})/stories/submit/?$#' => 'create'
+	)
+);
+
 /*
 ** THIS SHOULD ALWAYS BE LAST!! fallback pattern: if no other patterns matched
 ** this pattern will match everything

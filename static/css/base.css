@@ -8,6 +8,12 @@
 .left_float { float: left; }
 .clearfix { clear:both; }
 
+#notice {
+	text-align: center;
+	width:860px;
+	padding:5px;
+	}
+
 body {
 	padding: 0px;
 	margin: 0px;
@@ -45,8 +51,9 @@ h1 a {
 	}
 
 div#seasons {
-	background-color: #000;
 	min-width: 960px;
+	width:100%;
+	background-color: #000;
 	}
 
 div#seasons ol {
@@ -93,11 +100,12 @@ div#content {
 	margin-top: 3ex;
 	margin-bottom: 3ex;
 	min-width: 400px;
-	max-width: 960px;
+	max-width: 900px;
 	}
 
 div.section {
 	padding-left: 1em;
+	padding-top:2ex;
 	padding-right: 1em;
 	border-top: 1px solid #000;
 	margin-bottom: 4ex;

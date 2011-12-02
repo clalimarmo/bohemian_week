@@ -59,3 +59,41 @@
 }
 #description {
 }
+p.contribute {	
+	text-align: right;
+	}
+#storyform {
+	font-size:.8em;
+	width: 600px;
+	}
+#storyform fieldset {
+	border:none;
+	}
+#stories {
+	list-style:none;
+	padding-left:0px;
+	}
+#stories li {
+	padding-bottom: 4ex;
+	}
+#stories li:last-child {
+	padding-bottom: 0ex;
+	}
+.story-title {
+	text-decoration:underline;
+	}
+.story-location {
+	color: #666;
+	}
+.story-location:before {
+	color: #666;
+	}
+.story-story:before { content: '"'; }
+.story-story:after { content: '"'; }
+.story-contributor {
+	color: #666;
+	}
+.story-contributor:before {
+	content: '-';
+	color: #666;
+	}
