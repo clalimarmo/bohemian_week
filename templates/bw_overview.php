@@ -77,15 +77,4 @@
 		<div>No photos</div>
 	<?php }// end if(there are photos) ?>
 	</div>
-	<h2>Stories</h2>
-	<div class="section">
-		<?php
-		$_story_list['stories'] = array_slice($bw_stories,0,4);
-		include(TEMPLATE_ROOT.'stories/_story_list.php');
-		?>
-		<div>
-			<p class="contribute"><a href="<?=ROOT_URL;?>/bw/<?=$time_tag;?>/stories/">See all</a></p>
-			<p class="contribute"><a href="<?=ROOT_URL;?>/bw/<?=$time_tag;?>/stories/submit/">Submit your own</a></p>
-		</div>
-	</div>
 <?php endblock(); ?>

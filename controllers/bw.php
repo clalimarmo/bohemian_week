@@ -1,7 +1,5 @@
 <?php
 require_once(APP_ROOT.'lib/phpFlickr/phpFlickr.php');
-require_once(MODEL_ROOT.'contributor.php');
-require_once(MODEL_ROOT.'story.php');
 
 function view_bw($args) {
 	$season = $args['season'];
@@ -20,12 +18,6 @@ function view_bw($args) {
 	$bw_official_photos = $results['photo'];
 	shuffle($bw_official_photos);
 	unset($results);
-
-	$story_mgr = Story::get_object_manager();
-	$bw_stories = $story_mgr->retrieve(array(array(
-		'season=' => $time_tag
-	)));
-	shuffle($bw_stories);
 
 	include(TEMPLATE_ROOT.'bw_overview.php');
 }
